@@ -1,7 +1,5 @@
 #include <iostream>
 #include <Windows.h>
-#include <sstream>
-#include <string>
 
 using namespace std;
 
@@ -10,16 +8,18 @@ void SetCp1251() {
     SetConsoleOutputCP(1251);
 }
 
-int countWords(const string& str) {
-    istringstream iss(str);
-    int count = 0;
-    string word;
+bool isPalindrome(const string& str) {
+    int left = 0, right = str.length() - 1;
 
-    while (iss >> word) {
-        count++;
+    while (left < right) {
+        if (str[left] != str[right]) {
+            return false;
+        }
+        left++;
+        right--;
     }
 
-    return count;
+    return true;
 }
 
 int main() {
@@ -29,9 +29,11 @@ int main() {
     cout << "Введіть рядок: ";
     getline(cin, inputString);
 
-    int wordCount = countWords(inputString);
-
-    cout << "Кількість слів: " << wordCount << endl;
+    if (isPalindrome(inputString)) {
+        cout << "Рядок є паліндромом." << endl;
+    } else {
+        cout << "Рядок не є паліндромом." << endl;
+    }
 
     return 0;
 }
